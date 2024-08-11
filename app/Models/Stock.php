@@ -18,4 +18,6 @@ class Stock extends Model
     public function price(){
         return $this->hasOne(Price::class);
     }
+
+    public static function AvailableStocks(){}
 }

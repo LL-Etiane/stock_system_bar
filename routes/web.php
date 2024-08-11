@@ -2,7 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', App\Livewire\Pages\Home::class)
+    ->name('home');
+
+Route::get('products', App\Livewire\Pages\Products\Index::class)
+    ->name('products.index');
+Route::get('products/create', App\Livewire\Pages\Products\Add::class)
+    ->name('products.add');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

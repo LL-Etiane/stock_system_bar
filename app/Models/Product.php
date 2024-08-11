@@ -18,4 +18,29 @@ class Product extends Model
     public function prices(){
         return $this->hasMany(Price::class);
     }
+
+    public function getStockAttribute(){
+        // get total stocks of type entry
+        $entry = $this->stocks()->where('type', 'entry')->sum('quantity');
+        // get total stocks of type exit
+        $exit = $this->stocks()->where('type', 'exit')->sum('quantity');
+        return $entry - $exit;
+    }
+
+    public function getPurchasePriceAttribute(){
+        return $this->prices()->latest()->first()->purchase_price;
+    }
+
+    public function getSellingPriceAttribute(){
+        return $this->prices()->latest()->first()->selling_price;
+    }
+
+    public static function AllProductsStockValue(){
+        $products = Product::all();
+        $total = 0;
+        foreach ($products as $product) {
+            $total += $product->stock * $product->purchase_price;
+        }
+        return $total;
+    }
 }
