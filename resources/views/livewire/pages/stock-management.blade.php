@@ -12,6 +12,6 @@
             <x-button label="record" icon="o-plus" link="{{ route('stock.record') }}" class="btn-circle btn-sm" />
         </x-slot:menu>
 
-        <x-table :headers="$headers" :rows="$stocks" />
+        <x-table :headers="$headers" :rows="$stocks" link="/products/{name}/view" />
     </x-card>
 </div>
