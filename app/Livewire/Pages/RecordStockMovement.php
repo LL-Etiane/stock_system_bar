@@ -57,6 +57,14 @@ class RecordStockMovement extends Component
 
         $date = Carbon::parse($this->date);
 
+        if($this->selectedTab == 'exit'){
+            $stock = $this->product->stock;
+            if($this->quantity > $stock){
+                $this->error("Quantity more than available stock");
+                return ;
+            }
+        }
+
         $stock = $this->product->stocks()->create([
             'quantity' => $this->quantity,
             'type' => $this->selectedTab,

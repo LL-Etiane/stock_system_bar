@@ -69,16 +69,21 @@ class StockManagement extends Component
                     // Fetch entries and exits for that day
                     $entries = $product->getEntriesAsAtDate($dayDate, $dayDate);
                     
-                    // Save data in stocks array for each day
-                    $this->stocks[$index][$dayLabel] = number_format($entries);
+                    if($dayLabel == 'mon'){
+                        $stock_brought_forward_and_entry = $product->getEntriesAsAtDate($this->start_date);
+                        $this->stocks[$index][$dayLabel] = number_format($stock_brought_forward_and_entry);
+                    }else{
+                        // Save data in stocks array for each day
+                        $this->stocks[$index][$dayLabel] = number_format($entries);
+                    }
                 } else {
                     $this->stocks[$index][$dayLabel] = 0;
                 }
             }
 
-            $this->stocks[$index]['tol'] = number_format($product->getEntriesAsAtDate($this->end_date, $this->start_date));
+            $this->stocks[$index]['tol'] = number_format($product->getEntriesAsAtDate($this->end_date));
             $this->stocks[$index]['sold'] = number_format($product->getExitsAsAtDate($this->end_date, $this->start_date));
-            $this->stocks[$index]['rem'] = number_format($product->getStockAsAtDate($this->end_date, $this->start_date));
+            $this->stocks[$index]['rem'] = number_format($product->getStockAsAtDate($this->end_date));
             $this->stocks[$index]['amt'] = number_format($product->getStockAsAtDate($this->end_date, $this->start_date) * $product->sellingPrice);
         }
     }

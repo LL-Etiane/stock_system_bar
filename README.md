@@ -21,3 +21,5 @@
         - stock_id
         - purchase_price
         - selling_price
+
+    On the stock sheet, The stock on monday, cotains the brought forward and any other stock for that day
