@@ -9,7 +9,7 @@
         </div>
 
         <x-slot:menu>
-            <x-button label="record" icon="o-plus" class="btn-circle btn-sm" />
+            <x-button label="record" icon="o-plus" link="{{ route('stock.record') }}" class="btn-circle btn-sm" />
         </x-slot:menu>
 
         <x-table :headers="$headers" :rows="$stocks" />

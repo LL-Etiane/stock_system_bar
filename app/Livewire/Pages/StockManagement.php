@@ -63,8 +63,7 @@ class StockManagement extends Component
             ];
 
             foreach ($daysOfWeek as $dayLabel => $dayOfWeek) {
-                $dayDate = $this->getDayOfWeekInRange($this->year, $this->month, $this->start_date->day, $this->end_date->day, $dayOfWeek);
-
+                $dayDate = $this->getDayOfWeekInRange($this->start_date, $this->end_date, $dayOfWeek);
                 // Check if the date was found for the desired day of the week
                 if ($dayDate) {
                     // Fetch entries and exits for that day
@@ -90,23 +89,21 @@ class StockManagement extends Component
     }
 
 
-    function getDayOfWeekInRange($year, $month, $startOfWeek, $endOfWeek, $desiredDayOfWeek) {
-        // Create a Carbon instance for the start of the week
-        $startDate = Carbon::createFromDate($year, $month, $startOfWeek)->startOfDay();
-        
-        // Create a Carbon instance for the end of the week
-        $endDate = Carbon::createFromDate($year, $month, $endOfWeek)->endOfDay();
-        
-        // Create a period from start to end of the week
+    function getDayOfWeekInRange($startDate, $endDate, $desiredDayOfWeek) {
+        // Ensure $startDate and $endDate are Carbon instances
+        $startDate = Carbon::parse($startDate)->startOfDay();
+        $endDate = Carbon::parse($endDate)->endOfDay();
+    
+        // Loop from start date to end date
         $period = CarbonPeriod::create($startDate, $endDate);
         
         // Loop through the period and find the desired day of the week
         foreach ($period as $date) {
-            if ($date->isDayOfWeek($desiredDayOfWeek)) {
+            if ($date->dayOfWeek === $desiredDayOfWeek) {
                 return $date->toDateString(); // Return the date in 'Y-m-d' format
             }
         }
-        
+    
         return null; // Return null if the desired day of the week isn't found in the range
-    }
+    }    
 }
