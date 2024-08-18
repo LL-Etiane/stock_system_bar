@@ -10,6 +10,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="/js/chart.umd.min.js"></script>
         <script type="text/javascript" src="/js/currency.js"></script>
+        <link rel="stylesheet" href="/css/flatpickr.min.css">
+        <script src="/js/flatpickr.min.js"></script>
 </head>
  
 <body class="font-sans antialiased bg-base-200/50">
@@ -58,6 +60,7 @@
                     <x-menu-item title="All products" icon="o-book-open" link="{{ route('products.index') }}" route="products.index"/>
                     <x-menu-item title="Add Product" icon="o-plus-circle" link="{{ route('products.add') }}" route="products.add"/>
                 </x-menu-sub>
+                <x-menu-item title="Stock Management" icon="o-circle-stack" link="{{ route('stock.index') }}" route="stock.index"/>
             </x-menu>
         </x-slot:sidebar>
  

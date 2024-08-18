@@ -1,5 +1,5 @@
 <div>
-    <div class="grid lg:grid-cols-4 gap-5 lg:gap-8">
+    <div x-init="loadGraph" class="grid lg:grid-cols-4 gap-5 lg:gap-8">
         <div class="bg-base-100 rounded-lg px-5 py-4 w-full shadow truncate text-ellipsis">
             <div class="flex items-center gap-3">
                 <div class="text-primary">
@@ -71,7 +71,9 @@
 
     <div class="grid lg:grid-cols-6 gap-8 mt-8">
         <div class="col-span-6 lg:col-span-4">
-            <canvas id="weeklySalesChart"></canvas>
+            <x-card title="Weekly Income">
+                <canvas id="weeklySalesChart"></canvas>
+            </x-card>
         </div>
         <div class="col-span-6 lg:col-span-2">
             <x-card title="Stock" separator>
@@ -84,45 +86,47 @@
 
 
 <script>
-    const weeklySalesChart = document.getElementById('weeklySalesChart');
+    function loadGraph() {
+        const weeklySalesChart = document.getElementById('weeklySalesChart');
 
-    new Chart(weeklySalesChart, {
-        type: 'line',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [{
-                label: 'Sales',
-                data: @json($sales_record_this_week),
-                borderWidth: 1,
-                backgroundColor: 'rgba(128, 90, 213, 0.2)', // Light purple fill
-                borderColor: 'rgba(128, 90, 213, 1)', // Darker purple line
-                borderWidth: 2,
-                pointBackgroundColor: 'rgba(128, 90, 213, 1)', // Color of the data points
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                fill: true, // Fill the area under the line
-                tension: 0.4, // Curved lines
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    grid: {
-                        display: false 
+        new Chart(weeklySalesChart, {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                datasets: [{
+                    label: 'Sales',
+                    data: @json($sales_record_this_week),
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(128, 90, 213, 0.2)', // Light purple fill
+                    borderColor: 'rgba(128, 90, 213, 1)', // Darker purple line
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(128, 90, 213, 1)', // Color of the data points
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    fill: true, // Fill the area under the line
+                    tension: 0.4, // Curved lines
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        beginAtZero: true
                     }
                 },
-                y: {
-                    grid: {
-                        display: false 
-                    },
-                    beginAtZero: true
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 </script>
