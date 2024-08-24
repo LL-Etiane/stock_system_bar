@@ -114,6 +114,8 @@ class ProductStocks extends Component
     }
 
     public function updatedMonth(){
+        $this->month = (int)$this->month;
+        $this->year = (int)$this->year;
         $this->generateCalendar();
         $this->getFinancialSummary();
     }
